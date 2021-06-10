@@ -1,14 +1,26 @@
+// JWT
+import {AuthenticationComponent} from '@loopback/authentication';
+import {
+  JWTAuthenticationComponent,
+
+  UserServiceBindings
+} from '@loopback/authentication-jwt';
 import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
-import {
-  RestExplorerBindings,
-  RestExplorerComponent,
-} from '@loopback/rest-explorer';
 import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
+import {
+  RestExplorerBindings,
+  RestExplorerComponent
+} from '@loopback/rest-explorer';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
+// import {DbDataSource} from './datasources';
+import {ProyMensajeriaDataSource} from "./datasources";
 import {MySequence} from './sequence';
+
+//
+
 
 export {ApplicationConfig};
 
@@ -40,5 +52,14 @@ export class MensajeriaBackApplication extends BootMixin(
         nested: true,
       },
     };
+
+    // JWT
+    // Mount authentication system
+    this.component(AuthenticationComponent);
+    // Mount jwt component
+    this.component(JWTAuthenticationComponent);
+    // Bind datasource
+    this.dataSource(ProyMensajeriaDataSource, UserServiceBindings.DATASOURCE_NAME);
+    //
   }
 }

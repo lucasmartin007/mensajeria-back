@@ -1,7 +1,7 @@
 import {inject} from '@loopback/core';
 import {DefaultCrudRepository} from '@loopback/repository';
-import {ProyMensajeriaDataSource} from '../datasources';
-import {Messages, MessagesRelations} from '../models';
+import {ProyMensajeriaDataSource} from '../datasources/proy-mensajeria.datasource';
+import {Messages, MessagesRelations} from '../models/messages.model';
 
 export class MessagesRepository extends DefaultCrudRepository<
   Messages,

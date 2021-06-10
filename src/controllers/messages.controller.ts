@@ -4,20 +4,24 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
+  del, get,
+  getModelSchemaRef, param,
+
+
+  patch, post,
+
+
+
+
   put,
-  del,
+
   requestBody,
-  response,
+  response
 } from '@loopback/rest';
-import {Messages} from '../models';
+import {Messages} from '../models/messages.model';
 import {MessagesRepository} from '../repositories';
 
 export class MessagesController {
@@ -37,7 +41,7 @@ export class MessagesController {
         'application/json': {
           schema: getModelSchemaRef(Messages, {
             title: 'NewMessages',
-            
+
           }),
         },
       },

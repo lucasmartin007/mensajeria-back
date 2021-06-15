@@ -3,6 +3,7 @@ import {DefaultCrudRepository} from '@loopback/repository';
 import {ProyMensajeriaDataSource} from '../datasources/proy-mensajeria.datasource';
 import {Usuarios, UsuariosRelations} from '../models';
 
+
 export class UsuariosRepository extends DefaultCrudRepository<
   Usuarios,
   typeof Usuarios.prototype.id,
@@ -13,4 +14,5 @@ export class UsuariosRepository extends DefaultCrudRepository<
   ) {
     super(Usuarios, dataSource);
   }
+
 }

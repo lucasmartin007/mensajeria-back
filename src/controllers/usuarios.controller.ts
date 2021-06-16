@@ -105,7 +105,7 @@ export class UsuariosController {
     @requestBody({
       content: {
         'application/json': {
-          email:"string",
+          username:"string",
           password:"string",
         },
       },
@@ -114,7 +114,7 @@ export class UsuariosController {
   ): Promise<Object> {
     console.log(credenciales)
 
-    return await this.usuariosRepository.find({where: {email:credenciales.email, password:credenciales.password}});
+    return await this.usuariosRepository.find({where: {username:credenciales.username, password:credenciales.password}});
   }
 
   //

@@ -1,4 +1,5 @@
 import {
+  AnyObject,
   Count,
   CountSchema,
   Filter,
@@ -151,4 +152,50 @@ export class MessagesController {
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.messagesRepository.deleteById(id);
   }
+
+  //
+
+  @post('/ver-mensajes')
+  @response(200, {
+    description: 'Array of Mensajes model instances',
+    content: {
+      'application/json': {
+        schema: {
+          items: getModelSchemaRef(Messages, {includeRelations: true}),
+        },
+      },
+    },
+  })
+  async verMensajes(
+    @requestBody({
+      content: {
+        'application/json': {
+          idUsuario:0,
+          idOtroUsuario:0
+        },
+      },
+    })
+    arreglo: AnyObject,
+  ): Promise<AnyObject> {
+    return await this.messagesRepository.find(
+      {
+        fields: ["id", "sender", "receiver", "message"],
+        where:{
+          or:[
+            {
+              and:[
+                {sender:arreglo.idUsuario, receiver:arreglo.idOtroUsuario}
+              ]
+            },
+            {
+              and:[
+                {sender:arreglo.idOtroUsuario, receiver:arreglo.idUsuario}
+              ]
+            },
+          ]
+        }
+      }
+    );
+  }
+
 }

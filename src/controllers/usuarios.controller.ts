@@ -4,7 +4,7 @@
 
 import {
   AnyObject,
-  Filter, repository
+  Filter, FilterExcludingWhere, repository
 } from '@loopback/repository';
 import {
   get, getModelSchemaRef,
@@ -112,28 +112,66 @@ export class UsuariosController {
     })
     credenciales: AnyObject,
   ): Promise<Object> {
-    console.log(credenciales)
+    // console.log(credenciales)
 
     return await this.usuariosRepository.find({where: {username:credenciales.username, password:credenciales.password}});
   }
 
   //
 
-  @get('/usuarios-campos')
+  @post('/usuarios-campos')
   @response(200, {
     description: 'Array of Usuarios model instances',
     content: {
       'application/json': {
         schema: {
-          type: 'array',
           items: getModelSchemaRef(Usuarios, {includeRelations: true}),
         },
       },
     },
   })
   async findUsuarios(
-    @param.filter(Usuarios) filter?: Filter<Usuarios>,
+    @requestBody({
+      content: {
+        'application/json': {
+          idUsuario:0,
+        },
+      },
+    })
+    arreglo: AnyObject,
   ): Promise<AnyObject> {
-    return await this.usuariosRepository.find({fields: ["id", "username"]});
+    return await this.usuariosRepository.find(
+      {
+        fields: ["id", "username"],
+        where:{
+          id:{
+            neq:arreglo.idUsuario
+          }
+        }
+      }
+    );
+  }
+
+  //
+
+  @get('/usuario-nombre/{id}')
+  @response(200, {
+    description: 'Messages model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(Usuarios, {includeRelations: true}),
+      },
+    },
+  })
+  async findById(
+    @param.path.number('id') id_usuario: number,
+    @param.filter(Usuarios, {exclude: 'where'}) filter?: FilterExcludingWhere<Usuarios>
+  ): Promise<Object> {
+    return await this.usuariosRepository.find({
+      fields: ["username"],
+      where:{
+        id:id_usuario
+      }
+    });
   }
 }

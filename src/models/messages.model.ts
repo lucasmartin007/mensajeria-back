@@ -27,6 +27,25 @@ export class Messages extends Entity {
   })
   message: string;
 
+  @property({
+    type: 'Date',
+    required: true,
+  })
+  created_at: Date;
+
+  @property({
+    type: 'boolean',
+    required: true,
+    default: false,
+  })
+  es_archivo: boolean;
+
+  @property({
+    type: 'string',
+    required: false,
+  })
+  nombre_archivo: string;
+
 
   constructor(data?: Partial<Messages>) {
     super(data);

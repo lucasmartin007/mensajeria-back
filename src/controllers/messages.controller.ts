@@ -179,7 +179,7 @@ export class MessagesController {
   ): Promise<AnyObject> {
     return await this.messagesRepository.find(
       {
-        fields: ["id", "sender", "receiver", "message"],
+        fields: ["id", "sender", "receiver", "message", "created_at", "es_archivo"],
         where:{
           or:[
             {

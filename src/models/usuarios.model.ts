@@ -27,6 +27,12 @@ export class Usuarios extends Entity {
   })
   email: string;
 
+  @property({
+    type: 'Date',
+    required: true,
+  })
+  created_at: Date;
+
 
   constructor(data?: Partial<Usuarios>) {
     super(data);

@@ -1,0 +1,3 @@
+Hacer una funcion nueva que se llame "renderSquare"
+
+Completar los ejercicios de la pagina

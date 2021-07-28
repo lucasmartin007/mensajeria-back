@@ -12,21 +12,21 @@ import {
   requestBody,
   response
 } from '@loopback/rest';
-import {Usuarios} from '../models/Usuarios.model';
+import {Usuarios} from '../models/usuarios.model';
 import {UsuariosRepository} from '../repositories';
 
 
-export class UsuarioDevuelto{
-  id:number
-  username:string
+export class UsuarioDevuelto {
+  id: number
+  username: string
 }
 
 export class UsuariosController {
   constructor(
     @repository(UsuariosRepository)
-    public usuariosRepository : UsuariosRepository,
+    public usuariosRepository: UsuariosRepository,
 
-  ) {}
+  ) { }
 
   @post('/usuarios')
   @response(200, {
@@ -105,8 +105,8 @@ export class UsuariosController {
     @requestBody({
       content: {
         'application/json': {
-          username:"string",
-          password:"string",
+          username: "string",
+          password: "string",
         },
       },
     })
@@ -114,7 +114,7 @@ export class UsuariosController {
   ): Promise<Object> {
     // console.log(credenciales)
 
-    return await this.usuariosRepository.find({where: {username:credenciales.username, password:credenciales.password}});
+    return await this.usuariosRepository.find({where: {username: credenciales.username, password: credenciales.password}});
   }
 
   //
@@ -134,7 +134,7 @@ export class UsuariosController {
     @requestBody({
       content: {
         'application/json': {
-          idUsuario:0,
+          idUsuario: 0,
         },
       },
     })
@@ -143,9 +143,9 @@ export class UsuariosController {
     return await this.usuariosRepository.find(
       {
         fields: ["id", "username"],
-        where:{
-          id:{
-            neq:arreglo.idUsuario
+        where: {
+          id: {
+            neq: arreglo.idUsuario
           }
         }
       }
@@ -169,8 +169,8 @@ export class UsuariosController {
   ): Promise<Object> {
     return await this.usuariosRepository.find({
       fields: ["username"],
-      where:{
-        id:id_usuario
+      where: {
+        id: id_usuario
       }
     });
   }

@@ -32,7 +32,7 @@ export class FileUploadController {
    */
   constructor(
     @inject(FILE_UPLOAD_SERVICE) private handler: FileUploadHandler,
-  ) {}
+  ) { }
   @post('/files', {
     responses: {
       200: {
@@ -93,7 +93,7 @@ export class FileUploadController {
    * @param response
    * @param request
    */
-   @post('/advertisingImage', {
+  @post('/advertisingImage', {
     responses: {
       200: {
         content: {
@@ -116,7 +116,7 @@ export class FileUploadController {
     if (res) {
       //const filename = response.req?.file.filename;
       const filename = {
-        "nombre":"hola"
+        "nombre": "hola"
       }
       if (filename) {
         return {filename: filename};
@@ -132,7 +132,7 @@ export class FileUploadController {
    * @param response
    * @param request
    */
-   @post('/textFile', {
+  @post('/textFile', {
     responses: {
       200: {
         content: {
@@ -155,7 +155,46 @@ export class FileUploadController {
     if (res) {
       // const filename = response.req?.file.filename;
       const filename = {
-        "nombre":"hola"
+        "nombre": "hola"
+      }
+      if (filename) {
+        return {filename: filename};
+      }
+    }
+    return res;
+  }
+
+  //
+
+  /**
+   *
+   * @param response
+   * @param request
+   */
+  @post('/imageFile', {
+    responses: {
+      200: {
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+            },
+          },
+        },
+        description: 'Image file',
+      },
+    },
+  })
+  async imageFileUpload(
+    @inject(RestBindings.Http.RESPONSE) response: Response,
+    @requestBody.file() request: Request,
+  ): Promise<object | false> {
+    const imageFilePath = path.join(__dirname, UploadFilesKeys.IMAGE_FILE_PATH);
+    let res = await this.StoreFileToPath(imageFilePath, UploadFilesKeys.IMAGE_FILE_FIELDNAME, request, response, UploadFilesKeys.IMAGE_ACCEPTED_EXT); //
+    if (res) {
+      // const filename = response.req?.file.filename;
+      const filename = {
+        "nombre": "hola"
       }
       if (filename) {
         return {filename: filename};
@@ -172,7 +211,7 @@ export class FileUploadController {
    * @param request
    * @param response
    */
-   private StoreFileToPath(storePath: string, fieldname: string, request: Request, response: Response, acceptedExt: string[]): Promise<object> {
+  private StoreFileToPath(storePath: string, fieldname: string, request: Request, response: Response, acceptedExt: string[]): Promise<object> {
     return new Promise<object>((resolve, reject) => {
       const storage = this.GetMulterStorageConfig(storePath);
       const upload = multer({
@@ -200,32 +239,32 @@ export class FileUploadController {
 
   //
 
-    /**
-   * Return a config for multer storage
-   * @param path
-   */
-     private GetMulterStorageConfig(path: string) {
-      var filename: string = '';
-      const storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-          cb(null, path)
-        },
-        filename: function (req, file, cb) {
-          let fec_actual = Date.now();
-          let fec_cadena = fec_actual.toString();
-          let fec_sin_milisegundos = "";
-          for(let i = 0; i < fec_cadena.length; i ++){
-            if(i > fec_cadena.length - 1 - 3){
-              fec_sin_milisegundos += "0"
-            }else{
-              fec_sin_milisegundos += fec_cadena[i]
-            }
+  /**
+ * Return a config for multer storage
+ * @param path
+ */
+  private GetMulterStorageConfig(path: string) {
+    var filename: string = '';
+    const storage = multer.diskStorage({
+      destination: function (req, file, cb) {
+        cb(null, path)
+      },
+      filename: function (req, file, cb) {
+        let fec_actual = Date.now();
+        let fec_cadena = fec_actual.toString();
+        let fec_sin_milisegundos = "";
+        for (let i = 0; i < fec_cadena.length; i++) {
+          if (i > fec_cadena.length - 1 - 3) {
+            fec_sin_milisegundos += "0"
+          } else {
+            fec_sin_milisegundos += fec_cadena[i]
           }
-          let fec_sin_milisegundos_numerica = parseInt(fec_sin_milisegundos)
-          filename = `${fec_sin_milisegundos_numerica}-${file.originalname}`
-          cb(null, filename);
         }
-      });
-      return storage;
-    }
+        let fec_sin_milisegundos_numerica = parseInt(fec_sin_milisegundos)
+        filename = `${fec_sin_milisegundos_numerica}-${file.originalname}`
+        cb(null, filename);
+      }
+    });
+    return storage;
+  }
 }

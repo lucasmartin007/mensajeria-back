@@ -46,6 +46,12 @@ export class Messages extends Entity {
   })
   nombre_archivo: string;
 
+  @property({
+    type: 'any',
+    required: false,
+  })
+  cont_imagen: any;
+
 
   constructor(data?: Partial<Messages>) {
     super(data);

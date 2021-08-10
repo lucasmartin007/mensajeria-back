@@ -13,7 +13,7 @@ export class Solicitudes extends Entity {
     type: 'string',
     required: true,
   })
-  direccion_ip?: string;
+  user_id?: string;
 
   @property({
     type: 'Date',

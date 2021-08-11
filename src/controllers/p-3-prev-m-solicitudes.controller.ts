@@ -54,15 +54,15 @@ export class P3PrevMSolicitudesController {
     let id_usuario = currentUserProfile[securityId];
 
     let fec_actual = new Date()
-    console.log(fec_actual)
+    // console.log(fec_actual)
 
-    let fec_minima_numero = fec_actual.getTime() - 1000 * 60 * 30
-    let fec_minima = new Date(fec_minima_numero)
-    console.log(fec_minima)
+    // let fec_minima_numero = fec_actual.getTime() - 1000 * 60 * 30
+    // let fec_minima = new Date(fec_minima_numero)
+    // console.log(fec_minima)
 
-    await this.solicitudesRepository.deleteAll({
-      created_at: {lt: fec_minima}
-    })
+    // await this.solicitudesRepository.deleteAll({
+    //   created_at: {lt: fec_minima}
+    // })
 
     let arreglo = await this.solicitudesRepository.find({
       where: {
@@ -70,7 +70,7 @@ export class P3PrevMSolicitudesController {
       }
     })
 
-    console.log("Longitud del objeto: " + arreglo.length)
+    // console.log("Longitud del objeto: " + arreglo.length)
 
     if (arreglo.length < 10) {
       // cad += "Cadena devuelta con autorizacion"

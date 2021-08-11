@@ -29,7 +29,7 @@ export class Usuarios extends Entity {
 
   @property({
     type: 'Date',
-    required: true,
+    required: false,
   })
   created_at: Date;
 

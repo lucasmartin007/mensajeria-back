@@ -24,5 +24,9 @@ RUN npm run build
 # Bind to all network interfaces so that it can be mapped to the host OS
 ENV HOST=0.0.0.0 PORT=3000
 
+ENV MYSQL_ROOT_PASSWORD=secret
+ENV MYSQL_DATABASE=proy-mensajeria
+
 EXPOSE ${PORT}
 CMD [ "node", "." ]
+

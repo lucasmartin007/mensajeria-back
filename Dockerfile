@@ -25,7 +25,7 @@ RUN npm run build
 ENV HOST=0.0.0.0 PORT=3000
 
 ENV MYSQL_ROOT_PASSWORD=secret
-ENV MYSQL_DATABASE=proy_mensajeria
+ENV MYSQL_DATABASE=proy-mensajeria
 
 EXPOSE ${PORT}
 CMD [ "node", "." ]

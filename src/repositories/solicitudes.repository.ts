@@ -9,7 +9,7 @@ export class SolicitudesRepository extends DefaultCrudRepository<
   SolicitudesRelations
 > {
   constructor(
-    @inject('datasources.proy_mensajeria') dataSource: ProyMensajeriaDataSource,
+    @inject('datasources.proy-mensajeria') dataSource: ProyMensajeriaDataSource,
   ) {
     super(Solicitudes, dataSource);
   }

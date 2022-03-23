@@ -10,7 +10,7 @@ export class UsuariosRepository extends DefaultCrudRepository<
   UsuariosRelations
 > {
   constructor(
-    @inject('datasources.proy_mensajeria') dataSource: ProyMensajeriaDataSource,
+    @inject('datasources.proy-mensajeria') dataSource: ProyMensajeriaDataSource,
   ) {
     super(Usuarios, dataSource);
   }
